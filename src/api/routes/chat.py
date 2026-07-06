@@ -118,6 +118,7 @@ async def chat(request: ChatRequest):
     sources = [
         {
             "text": ctx.get("text", "")[:200],
+            "full_text": ctx.get("text", ""),
             "source": ctx.get("metadata", {}).get("source", "unknown"),
             "score": ctx.get("score", 0.0),
         }

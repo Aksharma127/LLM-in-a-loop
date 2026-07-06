@@ -15,6 +15,7 @@ The system coordinates local hybrid vector search with cloud-based LLM agents us
 - **Agentic Pipeline (LangGraph)**: Utilizes a directed acyclic graph to route and process queries. The system dynamically decides whether to query the vector database, execute a web search, or answer directly, ensuring maximum efficiency and minimal hallucination.
 - **Multi-Model Routing**: Automatically selects the optimal LLM for the task. Fast, lightweight models (`Llama-3.1-8B`) handle routing and criticism, while heavy synthesis is delegated to powerful models (`Llama-3.3-70B`).
 - **Memory & Caching**: Integrates a Redis-backed caching layer and conversation memory to instantly serve recurring queries and maintain context across multi-turn sessions.
+- **Advanced Evaluation Suite**: Built-in RAGAS evaluation pipeline to mathematically score agent responses for Faithfulness, Answer Relevancy, Context Precision, and Context Recall using local embedding judges.
 
 ---
 
@@ -169,9 +170,22 @@ ruff check src/
 ```
 
 **Evaluate Pipeline Accuracy:**
-Run the evaluation script to benchmark the retrieval and synthesis accuracy of the pipeline:
+Run the standard evaluation script to benchmark routing and generation accuracy:
 ```bash
 python -m scripts.evaluate
+```
+
+**Advanced RAGAS Evaluation:**
+To test the pipeline against industry-standard RAG metrics (Faithfulness, Answer Relevancy, Context Precision, and Context Recall), use the built-in RAGAS script. This script uses the local MiniLM embeddings and Groq LLMs as judges to measure groundedness without incurring extra API costs.
+
+*Note: You may need to install the evaluation dependencies first (`pip install ragas datasets langchain-huggingface langchain-google-vertexai`).*
+
+```bash
+# Clear the cache first to ensure requests hit the full Retriever pipeline
+curl -X DELETE http://localhost:8000/api/v1/chat/session/your-session-id
+
+# Run the RAGAS evaluation
+python -m scripts.evaluate_ragas --api-base http://localhost:8000
 ```
 
 ---
