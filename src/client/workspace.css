@@ -1,0 +1,204 @@
+/* Modern premium dark-mode theme for LLM Loop Workspace */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Apply font globally */
+html, body, [class*="css"] {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* App background configuration with subtle radial glow */
+.stApp {
+    background-color: #09090b !important;
+    background-image: radial-gradient(circle at 50% -20%, #1e1b4b 0%, #09090b 80%) !important;
+    color: #fafafa !important;
+}
+
+/* Sidebar styling - Sleek glassmorphism */
+[data-testid="stSidebar"] {
+    background-color: rgba(9, 9, 11, 0.8) !important;
+    backdrop-filter: blur(16px);
+    border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Sidebar content margins */
+[data-testid="stSidebarUserContent"] {
+    padding-top: 2rem !important;
+}
+
+/* Clean, modern headers */
+h1, h2, h3 {
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+    color: #ffffff !important;
+}
+
+/* Gradient text for main title */
+.workspace-title {
+    font-size: 2.2rem !important;
+    font-weight: 800 !important;
+    background: linear-gradient(to right, #ffffff, #a5b4fc, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.2rem !important;
+}
+
+.workspace-subtitle {
+    font-size: 0.95rem !important;
+    color: #a1a1aa !important;
+    margin-bottom: 2rem !important;
+}
+
+/* Document / Query Log blocks */
+.user-block {
+    background-color: rgba(24, 24, 27, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-left: 3px solid #6366f1 !important;
+    border-radius: 8px !important;
+    padding: 1.2rem 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.user-block-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #6366f1;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.05em;
+}
+
+.assistant-block {
+    background-color: rgba(12, 12, 16, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+    border-left: 3px solid #10b981 !important;
+    border-radius: 8px !important;
+    padding: 1.5rem !important;
+    margin-bottom: 2rem !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+}
+
+.assistant-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.assistant-block-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #10b981;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+/* Modern Pill Badges */
+.badge-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.custom-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.badge-route { background: rgba(99, 102, 241, 0.1); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.2); }
+.badge-pass { background: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); }
+.badge-retry { background: rgba(245, 158, 11, 0.1); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.2); }
+.badge-fail { background: rgba(239, 68, 68, 0.1); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); }
+.badge-model { background: rgba(255, 255, 255, 0.05); color: #d1d5db; border: 1px solid rgba(255, 255, 255, 0.1); }
+.badge-cached { background: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); }
+
+/* Premium Source Cards */
+.sources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.source-card-v2 {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.source-card-v2:hover {
+    border-color: rgba(99, 102, 241, 0.3);
+    background: rgba(99, 102, 241, 0.02);
+    transform: translateY(-1px);
+}
+
+.source-card-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #e4e4e7;
+    margin-bottom: 0.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.source-card-text {
+    font-size: 0.75rem;
+    color: #a1a1aa;
+    line-height: 1.4;
+}
+
+.source-card-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: #71717a;
+    margin-top: 0.4rem;
+}
+
+/* Custom Ingestion & Status widgets */
+.status-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+.dot-green { background-color: #10b981; box-shadow: 0 0 8px #10b981; }
+.dot-yellow { background-color: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
+.dot-red { background-color: #ef4444; box-shadow: 0 0 8px #ef4444; }
+
+/* Custom Form and Input styles */
+div[data-baseweb="input"] {
+    background-color: rgba(24, 24, 27, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 8px !important;
+}
+
+div[data-baseweb="input"]:focus-within {
+    border-color: rgba(99, 102, 241, 0.5) !important;
+    box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.5) !important;
+}
+
+/* Hide default streamlit elements to keep workspace clean */
+#MainMenu, footer, header {
+    visibility: hidden;
+    height: 0;
+}
