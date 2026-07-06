@@ -8,7 +8,7 @@ Uses LangChain's RecursiveCharacterTextSplitter for smart boundary detection.
 from __future__ import annotations
 
 from langchain_core.documents import Document
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from src.config.settings import get_settings
 
