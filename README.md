@@ -1,4 +1,4 @@
-# 🔄 Loop Studio — Multi-Agent Semantic Research Engine
+#  Loop Studio — Multi-Agent Semantic Research Engine
 
 ![Loop Studio Workspace Console](screenshot.png)
 
@@ -8,7 +8,7 @@ The system coordinates local hybrid vector search with cloud-based LLM agents us
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
 - **Premium Workspace Interface**: A completely custom, minimalist Dark Slate UI built on Streamlit. We override default components with tailored CSS to deliver an elite, high-fidelity console experience reminiscent of top-tier developer tools.
 - **Hybrid Semantic Search**: Implements advanced retrieval by combining dense semantic vector search (local `MiniLM-L6-v2` embeddings) with sparse keyword matching (`BM25`). The results are intelligently merged and re-ranked using **Reciprocal Rank Fusion (RRF)** for unparalleled accuracy.
@@ -18,7 +18,7 @@ The system coordinates local hybrid vector search with cloud-based LLM agents us
 
 ---
 
-## 🏗️ System Architecture
+##  System Architecture
 
 ### High-Level Workflow
 
@@ -60,7 +60,7 @@ graph TD
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### 1. Prerequisites
 - **Python 3.10+**
@@ -116,7 +116,7 @@ streamlit run src/client/app.py
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```text
 LLM_loop/
@@ -139,7 +139,7 @@ LLM_loop/
 
 ---
 
-## 📡 API Reference
+##  API Reference
 
 The backend provides a robust REST API for programmatic access to the research engine.
 
@@ -154,7 +154,7 @@ The backend provides a robust REST API for programmatic access to the research e
 
 ---
 
-## 🛠️ Development & Testing
+##  Development & Testing
 
 We enforce strict quality standards using `pytest` and `ruff`.
 
@@ -175,7 +175,3 @@ python -m scripts.evaluate
 ```
 
 ---
-
-## 📄 License
-
-This project is licensed under the **MIT License**. See the LICENSE file for details.
