@@ -112,13 +112,14 @@ class LongTermMemory:
                 )
             )
 
-        results = self._client.search(
+        response = self._client.query_points(
             collection_name=self._collection,
-            query_vector=query_vector,
+            query=query_vector,
             limit=top_k,
             query_filter=Filter(must=must_conditions),
             with_payload=True,
         )
+        results = response.points
 
         return [
             {

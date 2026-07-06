@@ -128,13 +128,14 @@ class SearchService:
                 ]
             )
 
-        results: list[ScoredPoint] = self._client.search(
+        response = self._client.query_points(
             collection_name=self._collection,
-            query_vector=query_vector,
+            query=query_vector,
             limit=k,
             query_filter=query_filter,
             with_payload=True,
         )
+        results = response.points
 
         return [
             {

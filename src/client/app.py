@@ -9,6 +9,9 @@ from __future__ import annotations
 import os
 import requests
 import streamlit as st
+from markdown_it import MarkdownIt
+
+md = MarkdownIt()
 
 # ── Configuration ────────────────────────────────────────────
 
@@ -148,8 +151,19 @@ with st.sidebar:
 
 # ── Main Workspace area ───────────────────────────────────────
 
-st.markdown('<div class="workspace-title">Loop Studio</div>', unsafe_allow_html=True)
-st.markdown('<div class="workspace-subtitle">Multi-Agent Cognitive Engine // Semantic Retrieval & Verification</div>', unsafe_allow_html=True)
+st.markdown("""
+<div class="workspace-header">
+    <div>
+        <div class="workspace-title">Loop Studio</div>
+        <div class="workspace-subtitle">Multi-Agent Cognitive Engine // Semantic Retrieval & Verification</div>
+    </div>
+    <div class="stats-row">
+        <span class="stat-badge">DB: QDRANT CLOUD</span>
+        <span class="stat-badge">CPU: MINILM-L6</span>
+        <span class="stat-badge">LLM: GROQ ROUTER</span>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
 # Initialize session state
 if "messages" not in st.session_state:
@@ -179,18 +193,11 @@ for msg in st.session_state.messages:
         if cached:
             badge_html += '<span class="custom-badge badge-cached">⚡ CACHED</span>'
 
-        st.markdown(f"""
-        <div class="assistant-block">
-            <div class="assistant-block-header">
-                <span class="assistant-block-title">VERIFIED SYNTHESIS // RESPONSE LOG</span>
-                <div class="badge-group">{badge_html}</div>
-            </div>
-        """, unsafe_allow_html=True)
+        # Render markdown content as HTML
+        rendered_html = md.render(msg["content"])
 
-        # Markdown answer content
-        st.markdown(msg["content"])
-
-        # Display sources if any were retrieved
+        # Construct sources section if present
+        sources_html = ""
         sources = meta.get("sources", [])
         if sources:
             source_cards_html = ""
@@ -205,17 +212,23 @@ for msg in st.session_state.messages:
                     <div class="source-card-meta">Relevance Score: {src.get('score', 0):.3f}</div>
                 </div>
                 """
-            
-            st.markdown(f"""
+            sources_html = f"""
             <div style="margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem;">
                 <div style="font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; color: #a1a1aa; margin-bottom: 0.75rem;">RETRIEVED SOURCE VERIFICATIONS</div>
                 <div class="sources-grid">
                     {source_cards_html}
                 </div>
             </div>
-            """, unsafe_allow_html=True)
+            """
 
-        st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown(f"""<div class="assistant-block">
+<div class="assistant-block-header">
+<span class="assistant-block-title">VERIFIED SYNTHESIS // RESPONSE LOG</span>
+<div class="badge-group">{badge_html}</div>
+</div>
+<div class="assistant-block-content">{rendered_html}</div>
+{sources_html}
+</div>""", unsafe_allow_html=True)
 
 
 # Query prompt input bar
@@ -261,18 +274,11 @@ if prompt := st.chat_input("Execute semantic query..."):
                 if meta["cached"]:
                     badge_html += '<span class="custom-badge badge-cached">⚡ CACHED</span>'
 
-                st.markdown(f"""
-                <div class="assistant-block">
-                    <div class="assistant-block-header">
-                        <span class="assistant-block-title">VERIFIED SYNTHESIS // RESPONSE LOG</span>
-                        <div class="badge-group">{badge_html}</div>
-                    </div>
-                """, unsafe_allow_html=True)
+                # Render markdown content as HTML
+                rendered_html = md.render(answer)
 
-                # Render response markdown text
-                st.markdown(answer)
-
-                # Sources display
+                # Construct sources section if present
+                sources_html = ""
                 sources = meta["sources"]
                 if sources:
                     source_cards_html = ""
@@ -287,17 +293,23 @@ if prompt := st.chat_input("Execute semantic query..."):
                             <div class="source-card-meta">Relevance Score: {src.get('score', 0):.3f}</div>
                         </div>
                         """
-                    
-                    st.markdown(f"""
+                    sources_html = f"""
                     <div style="margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem;">
                         <div style="font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; color: #a1a1aa; margin-bottom: 0.75rem;">RETRIEVED SOURCE VERIFICATIONS</div>
                         <div class="sources-grid">
                             {source_cards_html}
                         </div>
                     </div>
-                    """, unsafe_allow_html=True)
+                    """
 
-                st.markdown("</div>", unsafe_allow_html=True)
+                st.markdown(f"""<div class="assistant-block">
+<div class="assistant-block-header">
+<span class="assistant-block-title">VERIFIED SYNTHESIS // RESPONSE LOG</span>
+<div class="badge-group">{badge_html}</div>
+</div>
+<div class="assistant-block-content">{rendered_html}</div>
+{sources_html}
+</div>""", unsafe_allow_html=True)
 
                 # Append response to chat logs
                 st.session_state.messages.append({
