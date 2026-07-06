@@ -1,0 +1,41 @@
+# ── Docker Compose — local development stack ──────────────────
+# Runs Qdrant + Redis locally for dev.
+# The app itself runs outside Docker (native Python for faster iteration).
+# For production, add the app container and a reverse proxy.
+
+services:
+  # ── Qdrant vector database ─────────────────────────────────
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: llm-loop-qdrant
+    ports:
+      - "6333:6333"    # HTTP API
+      - "6334:6334"    # gRPC
+    volumes:
+      - qdrant_data:/qdrant/storage
+    environment:
+      - QDRANT__SERVICE__GRPC_PORT=6334
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 400M   # Keep it tight for 8GB machines
+
+  # ── Redis cache ────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: llm-loop-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --maxmemory 50mb --maxmemory-policy allkeys-lru
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 64M
+
+volumes:
+  qdrant_data:
+  redis_data:
